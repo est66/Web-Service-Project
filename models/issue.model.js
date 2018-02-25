@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 //Define a schema
 var Schema = mongoose.Schema;
 // Define a schema
-var userSchema = Schema({
+var issueSchema = Schema({
     uid: Schema.Types.ObjectId,
     title: String,
     body: String,
@@ -24,4 +24,4 @@ var userSchema = Schema({
     }
 });
 // Create the model from the schema and export it
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('Issue', issueSchema)

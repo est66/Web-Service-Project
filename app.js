@@ -32,7 +32,7 @@ app.use('/', index);
 
 //initilise routes of application
 require('./routes/user.route')(app);
-//require('./routes/issue.route')(app);
+require('./routes/issue.route')(app);
 
 
 
