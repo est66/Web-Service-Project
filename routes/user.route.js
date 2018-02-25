@@ -15,7 +15,7 @@ module.exports = function(app) {
     // Update a User with userId (replace document) 
     // app.put('/users/:userId', users.updateFields);
 
-    // (partial) Update of User with userId and body data
+    // Update of User with userId and body data (partial update) 
     app.put('/users/:userId', users.updateFields);
 
     // Delete a User with userId

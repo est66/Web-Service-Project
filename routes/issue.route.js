@@ -4,9 +4,9 @@ module.exports = function(app) {
 
     //---Relative to Unique User---
     // Create a new issue attached to a unique user
-    app.post('/users/:userId/issues', users.create);
+    app.post('/users/:userId/issues', issues.create);
     // Retrieve all issues of unique User
-    app.get('/users/:userId/issues/', issues.findAll);
+    app.get('/users/:userId/issues/', issues.findAllOfUser);
 
     //---Not relative to Users---
     // Retrieve all issues
@@ -16,9 +16,9 @@ module.exports = function(app) {
     app.get('/issues/:issueId', issues.findOne);
 
     // Update an issue with issueId (replace document) 
-    // app.put('/issues/:issueId', issues.updateFields);
+    // app.put('/issues/:issueId', issues.update);
 
-    // (partial) Update of issue with issueId and body data
+    // Update of issue with issueId and body data (partial update) 
     app.put('/issues/:issueId', issues.updateFields);
 
     // Delete an issue with issueId
