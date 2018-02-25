@@ -4,14 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-//index of application
-var index = require('./routes/index');
-
-//initilise routes of application
-//var users = require('./routes/users')(app);
-//var issues = require('./routes/issues')(app);
-
 var app = express();
 
 // view engine setup
@@ -26,21 +18,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 //Mongoose Database
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost/my-database-name');
 
-//routing
-//initilise routes of application
-//var index = require('./routes/index')(app);
-var users = require('./routes/user.route')(app);
-//var issues = require('./routes/issues')(app);
-
-
+//ROUTING
+//index is a simple page (no controller need) and the root of application
+//define index route
+var index = require('./routes/index.route');
 app.use('/', index);
-//app.use('/users', users);
-//app.use('/issues', users);
+
+//initilise routes of application
+require('./routes/user.route')(app);
+//require('./routes/issue.route')(app);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

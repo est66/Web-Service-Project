@@ -13,11 +13,13 @@ module.exports = function(app) {
     app.get('/users/:userId', users.findOne);
 
     // Update a User with userId (replace document) 
-    app.put('/users/:userId', users.updateFields);
+    // app.put('/users/:userId', users.updateFields);
 
     // (partial) Update of User with userId and body data
-    //  app.put('/users/:userId', users.updateFields);
+    app.put('/users/:userId', users.updateFields);
 
     // Delete a User with userId
     app.delete('/users/:userId', users.delete);
+
+
 }
