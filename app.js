@@ -22,8 +22,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Mongoose Database
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://eokoey@gmail.com:354ca11e2@ds249128.mlab.com:49128/comem-webserv');
-
+mongoose.connect('mongodb://est66:05052929@ds249128.mlab.com:49128/comem-webserv');
+//mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/my-db-name');
 //---ROUTING---
 //index is a simple page (no controller need) and the root of application
 //define index route
