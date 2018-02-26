@@ -4,13 +4,13 @@ var mongoose = require('mongoose');
 
 exports.create = function(req, res) {
     // Create and Save a new Issue
-    if (!req.body.title) {
+    if (!req.body.title || !req.body.body) {
         res.status(400).send({ message: "Issue can not be empty" });
     }
 
     var issue = new Issue(req.body);
     issue.uid = req.params.userId;
-    //Issue({ issuename: req.body.issuename || "Unnamed Issue", email: req.body.email });
+    //Issue({ issuename: req.body.title || "Untitled Issue" });
 
     issue.save(function(err, data) {
         if (err) {
@@ -64,8 +64,8 @@ exports.updateDoc = function(req, res) {
         }
         //Replace each field of Issue
 
-        Issue.issuename = req.body.issuename;
-        Issue.email = req.body.email;
+        Issue.title = req.body.title;
+        Issue.body = req.body.body;
 
         // Update issue data (document are remplaced by antoher)
         Issue.save(function(err, data) {
@@ -80,7 +80,7 @@ exports.updateDoc = function(req, res) {
 };
 
 exports.updateFields = function(req, res) {
-    // Update (partial) a Issue identified by the issueId in the request
+    // Update (partial) an Issue identified by the issueId in the request
     Issue.findByIdAndUpdate(
         // The id of the Issue to find
         req.params.issueId,

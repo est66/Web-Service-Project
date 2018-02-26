@@ -13,7 +13,7 @@ module.exports = function(app) {
     app.get('/users/:userId', users.findOne);
 
     // Update a User with userId (replace document) 
-    // app.put('/users/:userId', users.updateFields);
+    // app.put('/users/:userId', users.updateDoc);
 
     // Update of User with userId and body data (partial update) 
     app.put('/users/:userId', users.updateFields);
