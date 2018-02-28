@@ -1,3 +1,14 @@
+/**
+ * @api {get} /users/:id Request a user's information
+ * @apiName GetUser
+ * @apiGroup User
+ *
+ * @apiParam {Number} id Unique identifier of the user
+ *
+ * @apiSuccess {String} firstName First name of the user
+ * @apiSuccess {String} lastName  Last name of the user
+ */
+ 
 module.exports = function(app) {
 
     var users = require('../controllers/user.controller');
@@ -12,10 +23,10 @@ module.exports = function(app) {
     // Retrieve a single User with userId
     app.get('/users/:userId', users.findOne);
 
-    // Update a User with userId (replace document) 
+    // Update a User with userId (replace document)
     // app.put('/users/:userId', users.updateDoc);
 
-    // Update of User with userId and body data (partial update) 
+    // Update of User with userId and body data (partial update)
     app.put('/users/:userId', users.updateFields);
 
     // Delete a User with userId

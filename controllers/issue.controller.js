@@ -4,21 +4,13 @@ var mongoose = require('mongoose');
 
 exports.create = function(req, res) {
     // Create and Save a new Issue
-<<<<<<< HEAD
-    if (!req.body.title) {
-=======
     if (!req.body.title || !req.body.body) {
->>>>>>> a94fbbd8c640de2735312ff4bc73e4dcc5516fa5
         res.status(400).send({ message: "Issue can not be empty" });
     }
 
     var issue = new Issue(req.body);
     issue.uid = req.params.userId;
-<<<<<<< HEAD
-    //Issue({ issuename: req.body.issuename || "Unnamed Issue", email: req.body.email });
-=======
     //Issue({ issuename: req.body.title || "Untitled Issue" });
->>>>>>> a94fbbd8c640de2735312ff4bc73e4dcc5516fa5
 
     issue.save(function(err, data) {
         if (err) {
@@ -72,13 +64,8 @@ exports.updateDoc = function(req, res) {
         }
         //Replace each field of Issue
 
-<<<<<<< HEAD
-        Issue.issuename = req.body.issuename;
-        Issue.email = req.body.email;
-=======
         Issue.title = req.body.title;
         Issue.body = req.body.body;
->>>>>>> a94fbbd8c640de2735312ff4bc73e4dcc5516fa5
 
         // Update issue data (document are remplaced by antoher)
         Issue.save(function(err, data) {
@@ -91,13 +78,9 @@ exports.updateDoc = function(req, res) {
         });
     });
 };
-
+//branche d'antoine
 exports.updateFields = function(req, res) {
-<<<<<<< HEAD
-    // Update (partial) a Issue identified by the issueId in the request
-=======
     // Update (partial) an Issue identified by the issueId in the request
->>>>>>> a94fbbd8c640de2735312ff4bc73e4dcc5516fa5
     Issue.findByIdAndUpdate(
         // The id of the Issue to find
         req.params.issueId,
