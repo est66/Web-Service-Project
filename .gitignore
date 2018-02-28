@@ -1,5 +1,6 @@
 # My Ignore
 .env
+docs
 
 # OS X
 .DS_Store*

@@ -15,7 +15,8 @@ exports.create = function(req, res) {
         if (err) {
             console.log(err);
             res.status(500).send({
-                message: "Some error occurred while creating Issue."
+                message: "Some error occurred while creating Issue.",
+                errors: err.errors
 
             });
         } else {
