@@ -1,7 +1,8 @@
 module.exports = function(app) {
 
-    var users = require('../controllers/user.controller');
 
+
+    var users = require('../controllers/user.controller');
 
     // Create a new User
     app.post('/users', users.create);
@@ -9,17 +10,29 @@ module.exports = function(app) {
     // Retrieve all Users
     app.get('/users', users.findAll);
 
-    // Retrieve a single User with userId
-    app.get('/users/:userId', users.findOne);
+    /**
+     * @api {get} /users/:id Request a user's information
+     * @apiName findOne
+     * @apiGroup User
+     *
+     * @apiParam {Number} id Unique identifier of the user
+     *
+     * @apiSuccess {String} firstName First name of the user
+     * @apiSuccess {String} lastName  Last name of the user
+     */
 
-    // Update a User with userId (replace document) 
-    // app.put('/users/:userId', users.updateDoc);
+    // Retrieve a single User with id
+    app.get('/users/:id', users.findOne);
 
-    // Update of User with userId and body data (partial update) 
-    app.put('/users/:userId', users.updateFields);
-
-    // Delete a User with userId
-    app.delete('/users/:userId', users.delete);
+    // Update of User with id and body data (partial update) 
+    app.put('/users/:id', users.updateFields);
+    /**
+     * @api {delete} /api/people
+     * @apiUse PersonInRequestBody
+     * 
+     */
+    // Delete a User with id
+    app.delete('/users/:id', users.delete);
 
 
 }

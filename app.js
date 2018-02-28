@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var _ENV = require('./.env');
 var app = express();
 
 // view engine setup
@@ -22,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Mongoose Database
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://est66:05052929@ds249128.mlab.com:49128/comem-webserv');
+mongoose.connect(_ENV._DATABASE || 'mongodb://localhost/my-database-name');
 //mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/my-db-name');
 //---ROUTING---
 //index is a simple page (no controller need) and the root of application

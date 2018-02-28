@@ -4,9 +4,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 // Define a schema
 var issueSchema = Schema({
-    uid: Schema.Types.ObjectId,
+    uid: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
     title: String,
-    body: String,
+    description: String,
     comments: [ // Nested array of documents
         {
             body: String,

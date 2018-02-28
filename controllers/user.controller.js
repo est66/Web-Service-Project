@@ -33,44 +33,21 @@ exports.findAll = function(req, res) {
 };
 
 exports.findOne = function(req, res) {
-    // Find a single User with a userId
-    User.findById(req.params.userId, function(err, data) {
+    // Find a single User with a id
+    User.findById(req.params.id, function(err, data) {
         if (err) {
-            res.status(500).send({ message: "Could not retrieve User with id " + req.params.userId });
+            res.status(500).send({ message: "Could not retrieve User with id " + req.params.id });
         } else {
             res.status(200).send(data);
         }
     });
 };
 
-exports.updateDoc = function(req, res) {
-    // Update a User identified by the userId in the request
-    User.findById(req.params.userId, function(err, User) {
-        if (err) {
-            res.status(500).send({ message: "Could not find a User with id " + req.params.userId });
-        }
-        //Replace each field of User
-
-        User.username = req.body.username;
-        User.email = req.body.email;
-
-        // Update user data (document are remplaced by antoher)
-        User.save(function(err, data) {
-            // Handle any possible database errors
-            if (err) {
-                res.status(500).send({ message: "Could not update User with id " + req.params.userId });
-            } else {
-                res.status(200).send(data);
-            }
-        });
-    });
-};
-
 exports.updateFields = function(req, res) {
-    // Update (partial) a User identified by the userId in the request
+    // Update (partial) a User identified by the id in the request
     User.findByIdAndUpdate(
         // The id of the User to find
-        req.params.userId,
+        req.params.id,
         //Update each field of User
         { $set: req.body },
 
@@ -80,7 +57,7 @@ exports.updateFields = function(req, res) {
         (err, data) => {
             // Handle any possible database errors
             if (err) {
-                res.status(500).send({ message: "Could not update User with id " + req.params.userId });
+                res.status(500).send({ message: "Could not update User with id " + req.params.id });
             } else {
                 console.log(data);
                 res.status(200).send(data);
@@ -90,8 +67,8 @@ exports.updateFields = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-    // Delete a User with the specified userId in the request
-    User.remove({ _id: req.params.userId }, function(err, data) {
+    // Delete a User with the specified id in the request
+    User.remove({ _id: req.params.id }, function(err, data) {
         if (err) {
             res.status(500).send({ message: "Could not delete User with id " + req.params.id });
         } else {
