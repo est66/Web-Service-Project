@@ -29,6 +29,7 @@ try {
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 mongoose.connect(process.env._DATABASE || _ENV._DATABASE || 'mongodb://localhost/my-database-name');
+mongoose.set("debug", true);
 //mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/my-db-name');
 //---ROUTING---
 //index is a simple page (no controller need) and the root of application

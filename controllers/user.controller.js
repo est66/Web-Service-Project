@@ -34,8 +34,15 @@ exports.findAll = function(req, res) {
 
 exports.findOne = function(req, res) {
     // Find a single User with a id
-    User.findById(req.params.id, function(err, data) {
+    //if (!mongoose.Types.ObjectId.isValid(req.query.uid))
+    console.log(req.params.id, "Yeahhhh!")
+    User.findOne({
+        $or: [
+            { 'username': req.params.id }, { '_id': req.params.id }
+        ]
+    }, function(err, data) {
         if (err) {
+            console.log(err.message);
             res.status(500).send({ message: "Could not retrieve User with id " + req.params.id });
         } else {
             res.status(200).send(data);

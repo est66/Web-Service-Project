@@ -43,6 +43,7 @@ exports.findAllAndFilter = function(req, res) {
 
 exports.findOne = function(req, res) {
     // Find a single Issue with a id
+
     Issue.findById(req.params.id, function(err, data) {
         if (err) {
             res.status(500).send({ message: "Could not retrieve Issue with id " + req.params.id });
