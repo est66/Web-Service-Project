@@ -4,8 +4,16 @@ var mongoose = require('mongoose');
 
 exports.create = function(req, res) {
     // Create and Save a new User
-    if (!req.body.username) {
-        res.status(400).send({ message: "User can not be empty" });
+    if (!req.body.firstname) {
+        res.status(400).send({ message: "firstname can not be empty" });
+    }
+
+    if (!req.body.lastname) {
+        res.status(400).send({ message: "lastname can not be empty" });
+    }
+
+    if (!req.body.role ) {
+        res.status(400).send({ message: "role can not be empty" });
     }
 
     var user = new User(req.body);
@@ -56,7 +64,7 @@ exports.updateFields = function(req, res) {
         // The id of the User to find
         req.params.id,
         //Update each field of User
-        { $set: req.body },
+        {$set: req.body },
 
         // Return the updated version and create user if does no exist
         { upsert: true, new: true },
