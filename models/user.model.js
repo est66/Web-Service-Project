@@ -4,12 +4,29 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 // Define a schema
 var userSchema = Schema({
-    firstname: { type: String, unique: false, maxlength: 2 - 20 },
-    lastname: { type: String, unique: false, maxlength: 2 - 20 },
-    role: { type: String, enum: ['citzen', 'manager'] },
-}, { timestamps: { createdAt: 'createdAt' } });
+    firstname: {
+      type: String,
+      unique: false,
+      minlenght: 3,
+      maxlength: 20,
+      required: true
+    },
+    lastname: {
+      type: String,
+      unique: false,
+      minlenght: 3,
+      maxlength: 20,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ['citizen', 'manager'],
+      required: true,
+    }
+  } , { timestamps: { createdAt: 'created_at' } }
+  );
 
-
+userSchema.index({ firstname: 1, lastname: 1 }, { unique: true });
 //validation for first and last name
 /*
 function checkFirstName(value) {
@@ -20,11 +37,5 @@ function checkFirstName(value) {
         }, 5);
     });
 }*/
-
-
-
-
-
-
 // Create the model from the schema and export it
 module.exports = mongoose.model('User', userSchema)
