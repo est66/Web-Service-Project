@@ -1,7 +1,7 @@
 {
-    "name": "Projet Web-Services",
+    "name": "Citizen Engagement API",
     "version": "1.0.0",
-    "description": "It is awesome",
-    "title": "Par Antoine Lot & Esteem Okoro",
-    "url": "https://example.com"
+    "description": "Par Antoine Lot & Esteem Okoro",
+    "title": "Projet Web-Services",
+    "url": "https://comem-webserv-2018h.herokuapp.com"
 }

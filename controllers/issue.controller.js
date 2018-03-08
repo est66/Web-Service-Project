@@ -9,7 +9,6 @@ exports.create = function(req, res) {
     }
     var issue = new Issue(req.body);
     issue.uid = req.body.uid;
-    //Issue({ issuename: req.body.title || "Untitled Issue" });
 
     issue.save(function(err, data) {
         if (err) {

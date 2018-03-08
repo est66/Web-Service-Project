@@ -1,6 +1,7 @@
 /**
- * @apiDefine PersonInRequestBody
- * @apiParam (Request body) {String{3..30}} name The person's name
- * @apiParam (Request body) {String="male,female"} gender The person's gender
- * @apiParam (Request body) {String} [birthDate] The person's birth date
+ * @apiDefine User
+ * @apiSuccess {String} user.firstName Firstname of the user
+ * @apiSuccess {String} user.lastName  Lastname of the user
+ * @apiSuccess {String} user.role  Role of the user
+ * @apiSuccess {String} user.createdAt  Creation date of the user
  */

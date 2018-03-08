@@ -1,6 +1,7 @@
 # My Ignore
 .env
 docs
+apidoc.json
 
 # OS X
 .DS_Store*
