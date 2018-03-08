@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 
 exports.create = function(req, res) {
     // Create and Save a new Issue
-    if (!req.body.title || !req.body.description || !req.body.uid) {
+    if (!req.body.description || !req.body.uid) {
         res.status(400).send({ message: "Issue can not be empty" });
     }
     var issue = new Issue(req.body);
@@ -55,25 +55,42 @@ exports.findOne = function(req, res) {
 
 exports.updateFields = function(req, res) {
     // Update (partial) an Issue identified by the id in the request
-    Issue.findByIdAndUpdate(
-        // The id of the Issue to find
-        req.params.id,
-        //Update each field of Issue
-        { $set: req.body },
-
-        // Return the updated version and create issue if does no exist
-        { upsert: true, new: true },
-        // Update issue data
-        (err, data) => {
-            // Handle any possible database errors
-            if (err) {
-                res.status(500).send({ message: "Could not update Issue with id " + req.params.id });
-            } else {
-                console.log(data);
-                res.status(200).send(data);
+    Issue.findById(req.params.id, function(err, issue) {
+        if (err) return handleError(err.message);
+        //ADD THE NEW VALUE TO UPDATE AND VALIDATE STATUS TRANISITION (can't do that in model)
+        let newIssue = req.body;
+        if (newIssue.status) {
+            if (issue.status == 'new' && (newIssue.status == "new" || newIssue.status == "inProgress" || newIssue.status == "canceled")) console.log("Statuts Updated");
+            else if (issue.status == 'inProgress' && (newIssue.status == "canceled" || newIssue.status == "completed")) console.log("Statuts Updated");
+            else {
+                console.log("Error with Statuts transition");
+                return res.status(500).send({ message: "You can't transit from : " + issue.status + " status to " + newIssue.status + " status" });
             }
+            issue.status = newIssue.status;
         }
-    )
+        if (newIssue.description) issue.description = newIssue.description;
+        if (newIssue.imageUrl) issue.imageUrl = newIssue.imageUrl;
+        if (newIssue.latitude) issue.latitude = newIssue.latitude;
+        if (newIssue.longitude) issue.longitude = newIssue.longitude;
+        if (newIssue.tags) issue.tags = newIssue.tags;
+        //SAVE THE NEW VALUE
+        issue.save(
+
+            // Update issue data
+            (err, data) => {
+                // Handle any possible database errors
+                if (err) {
+                    res.status(500).send({ message: "Could not update Issue with id " + req.params.id });
+                } else {
+                    console.log(data);
+                    res.status(200).send(data);
+                }
+            }
+        )
+    })
+
+
+
 };
 
 exports.delete = function(req, res) {
