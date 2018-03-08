@@ -8,7 +8,7 @@ module.exports = function(app) {
     app.post('/users', users.create);
 
     // Retrieve all Users
-    app.get('/users', users.findAll);
+    app.get('/users', users.findAllAndFilter);
 
     /**
      * @api {get} /users/:id Request a user's information

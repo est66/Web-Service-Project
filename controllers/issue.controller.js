@@ -26,11 +26,29 @@ exports.create = function(req, res) {
 };
 
 exports.findAllAndFilter = function(req, res) {
+
+    // Retrieve and return all issues from the database.
+    let query = Issue.find();
     //FILTERS
     //add filters to query if in req.query
-    let query = Issue.find();
     if (req.query.uid)
         query = query.where('uid').in(req.query.uid);
+    if (req.query.status)
+        query = query.where('status').in(req.query.status);
+    //PAGINATION
+    // Parse the "page" param (default to 1 if invalid)
+    let page = parseInt(req.query.page, 10);
+    if (isNaN(page) || page < 1) {
+        page = 1;
+    }
+    // Parse the "pageSize" param (default to 100 if invalid)
+    let pageSize = parseInt(req.query.pageSize, 10);
+    if (isNaN(pageSize) || pageSize < 0 || pageSize > 100) {
+        pageSize = 100;
+    }
+    // Apply skip and limit to select the correct page of elements
+    query = query.skip((page - 1) * pageSize).limit(pageSize);
+
     // Retrieve and return all Issues from the database.
     query.exec(function(err, Issues) {
         if (err) {
