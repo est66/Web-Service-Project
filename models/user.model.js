@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 // Define a schema
 var userSchema = Schema({
     firstname: { type: String, unique: false, minlength: 2, maxlength: 20 },
-    lastname: { type: String, unique: false, maxlength: 2 - 20 },
+    lastname: { type: String, unique: false, maxlength: 2, maxlength: 20 },
     role: { type: String, enum: ['citzen', 'manager'] },
 }, { timestamps: { createdAt: 'createdAt' } });
 

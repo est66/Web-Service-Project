@@ -63,7 +63,7 @@ exports.findOne = function(req, res) {
 
     Issue.findById(req.params.id, function(err, data) {
         if (err) {
-            res.status(500).send({ message: "Could not retrieve Issue with id " + req.params.id });
+            res.status(404).send({ message: "Could not retrieve Issue with id " + req.params.id });
         } else {
             res.status(200).send(data);
         }
@@ -116,7 +116,7 @@ exports.delete = function(req, res) {
         if (err) {
             res.status(500).send({ message: "Could not delete Issue with id " + req.params.id });
         } else {
-            res.status(200).send({ message: "Issue deleted successfully!" })
+            res.status(204).send({ message: "Issue deleted successfully!" })
         }
     });
 
