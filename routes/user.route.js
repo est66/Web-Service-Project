@@ -6,17 +6,17 @@ module.exports = function(app) {
     //http://apidocjs.com/#param-api-success
     // -----Create a new User-----
     /**
-     * @api {post} /users Create a new user
+     * @api {post} /users POST USER
      * @apiName create
      * @apiGroup User
      * @apiDescription Registers a new user.
      *
-     * @apiParam (Request body) {String{2..20}} firstName First name of the user
-     * @apiParam (Request body) {String{2..20}} lastName  Last name of the user
-     * @apiParam (Request body) {String="citzen","manager"} role Role of the user
-     *
+     * @apiUse UserInRequestBody
      * @apiSuccess {Object} user Return an object of the user just created
-     * @apiUse User
+     * @apiUse UserInResponseBody
+     * @apiUse UserValidationError
+     * @apiUse UserValidationError
+     * 
      * 
      * @apiExample Example
      *     POST /users HTTP/1.1
@@ -46,18 +46,19 @@ module.exports = function(app) {
 
     // -----Retrieve all Users-----
     /**
-     * @api {get} /users Request all user's information
+     * @api {get} /users GET USERS
      * @apiName findAllAndFilter
      * @apiGroup User
      * @apiDescription Get all users
+     * @apiDescription Retrieves a paginated list of user.
      * 
+     * @apiSuccess {Object[]} users Return an array of all users
+     * @apiUse UserInResponseBody
      * @apiUse Pagination
+     * 
      * @apiParam (URL query parameters) {String} role Filter by role
      * @apiParam (URL query parameters) {String} lastname Filter by lastname
      * @apiParam (URL query parameters) {String} firstname Filter by firstname
-     *
-     * @apiSuccess {Object[]} users Return an array of all users
-     * @apiUse User
      * 
      * @apiExample Example
      *     GET /users?role=citzen&page=2&pageSize=50 HTTP/1.1
@@ -89,15 +90,17 @@ module.exports = function(app) {
 
     // -----Retrieve a single User with id-----
     /**
-     * @api {get} /users/:id Request a user's information
+     * @api {get} /users/:id GET USER
      * @apiName findOne
      * @apiGroup User
      * @apiDescription Get a user.
      * 
      * @apiParam {Number} id Unique identifier of the user
      * 
+     * @apiUse UserIdInUrlPath
      * @apiSuccess {Object} user Return an object of the user
-     * @apiUse User
+     * @apiUse UserInResponseBody
+     * @apiUse UserNotFoundError
      * 
      * @apiExample Example
      *     GET /users/58b2926f5e1def0123e97bc0 HTTP/1.1
@@ -120,18 +123,18 @@ module.exports = function(app) {
 
     // -----Update of User with id and body data (partial update) -----
     /**
-     * @api {put} /users/:id Update a user with id
+     * @api {put} /users/:id UPDATE USER
      * @apiName updateFields
      * @apiGroup User
-     *
-     * @apiParam (Request body) {String{2..20}} firstName First name of the user
-     * @apiParam (Request body) {String{2..20}} lastName  Last name of the user
-     * @apiParam (Request body) {String="citzen","manager"} role Role of the user
+     * @apiDescription Replaces all the user's data (the request body must represent a full, valid user).
      * 
-     * @apiParam (URL path parameters) {Number} id Unique identifier of the user
-     *
+     * @apiUse UserIdInUrlPath
+     * @apiUse UserInRequestBody
      * @apiSuccess {Object} user Return an object of the user just updated
-     * @apiUse User
+     * @apiUse UserInResponseBody
+     * @apiUse UserNotFoundError
+     * 
+     * 
      * 
      * @apiExample Example
      *     PUT /users/58b2926f5e1def0123e97bc0 HTTP/1.1
@@ -159,12 +162,14 @@ module.exports = function(app) {
 
     // -----Delete a User with id -----
     /**
-     * @api {delete} /users/:id Delete a user with id
+     * @api {delete} /users/:id DELETE USER
      * @apiName delete
      * @apiGroup User
+     * @apiDescription Permanently deletes a user.
+     * 
+     * @apiUse UserIdInUrlPath
+     * @apiUse UserNotFoundError
      *
-     *
-     * @apiSuccess (200) {String} response deleted confirmation message "User deleted successfully!"
      * @apiExample Example
      *     DELETE /users/58b2926f5e1def0123e97bc0 HTTP/1.1
      *
