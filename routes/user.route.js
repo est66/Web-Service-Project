@@ -12,7 +12,7 @@ module.exports = function(app) {
          * @apiSuccess {Object} user Return an object of the user just created
          * @apiUse UserInResponseBody
          * @apiUse UserValidationError
-         * @apiUse UserValidationError
+         * 
          * 
          * 
          * @apiExample Example
@@ -121,13 +121,14 @@ module.exports = function(app) {
          * @api {put} /users/:id UPDATE USER
          * @apiName updateFields
          * @apiGroup User
-         * @apiDescription Replaces all the user's data (the request body must represent a full, valid user).
+         * @apiDescription Partially updates a user's data (only the properties found in the request body will be updated).
          * 
          * @apiUse UserIdInUrlPath
          * @apiUse UserInRequestBody
          * @apiSuccess {Object} user Return an object of the user just updated
          * @apiUse UserInResponseBody
          * @apiUse UserNotFoundError
+         * @apiUse UserValidationError
          * 
          * 
          * 
@@ -174,15 +175,42 @@ module.exports = function(app) {
         app.delete('/users/:id', users.delete);
 
     }
-    //      -------- API DOCS DEFINE ---------
+    //      -------- API DOCS DEFINE ---------¨
     /**
-     * @apiDefine UserInResponseBody
-     * @apiSuccess {String} user.firstName Firstname of the user
-     * @apiSuccess {String} user.lastName  Lastname of the user
-     * @apiSuccess {String} user.role  Role of the user
-     * @apiSuccess {String} user.createdAt  Creation date of the user
-     * 
+     * @apiDefine UserIdInUrlPath
+     * @apiParam (URL path parameters) {String} id The unique identifier of the user to retrieve
      */
+
+/**
+ * @apiDefine UserInRequestBody
+ * @apiParam (Request body) {String{2..20}} firstName First name of the user
+ * @apiParam (Request body) {String{2..20}} lastName  Last name of the user
+ * @apiParam (Request body) {String="citzen","manager"} role Role of the user
+ * 
+ */
+
+
+/**
+ * @apiDefine UserInResponseBody
+ * @apiSuccess {String} user.firstName Firstname of the user
+ * @apiSuccess {String} user.lastName  Lastname of the user
+ * @apiSuccess {String} user.role  Role of the user
+ * @apiSuccess {String} user.createdAt  Creation date of the user
+ * 
+ */
+
+
+/**
+ * @apiDefine UserNotFoundError
+ *
+ * @apiError {Object} 404/NotFound No user was found corresponding to the ID in the URL path
+ *
+ * @apiErrorExample {json} 404 Not Found
+ *     HTTP/1.1 404 Not Found
+ *     Content-Type: text/plain
+ *
+ *     No user found with ID 58b2926f5e1def0123e97bc0
+ */
 
 /**
  * @apiDefine UserValidationError
@@ -217,34 +245,11 @@ module.exports = function(app) {
  *     }
  */
 
-/**
- * @apiDefine UserInRequestBody
- * @apiParam (Request body) {String{2..20}} firstName First name of the user
- * @apiParam (Request body) {String{2..20}} lastName  Last name of the user
- * @apiParam (Request body) {String="citzen","manager"} role Role of the user
- * 
- */
+
 /**
  * @apiDefine Pagination
  * @apiParam (URL query parameters) {Number} page The page to retrieve
  * @apiParam (URL query parameters) {Number} pageSize The number of object in page
  * 
  * 
- */
-
-/**
- * @apiDefine UserIdInUrlPath
- * @apiParam (URL path parameters) {String} id The unique identifier of the user to retrieve
- */
-
-/**
- * @apiDefine UserNotFoundError
- *
- * @apiError {Object} 404/NotFound No user was found corresponding to the ID in the URL path
- *
- * @apiErrorExample {json} 404 Not Found
- *     HTTP/1.1 404 Not Found
- *     Content-Type: text/plain
- *
- *     No user found with ID 58b2926f5e1def0123e97bc0
  */
