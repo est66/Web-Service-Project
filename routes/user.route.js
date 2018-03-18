@@ -222,20 +222,20 @@ module.exports = function(app) {
  *     Content-Type: application/json
  *
  *     {
- *       "message": "Person validation failed",
+ *       "message": "User validation failed",
  *       "errors": {
- *         "gender": {
+ *         "role": {
  *           "kind": "enum",
- *           "message": "`foo` is not a valid enum value for path `gender`.",
+ *           "message": "`foo` is not a valid enum value for path `role`.",
  *           "name": "ValidatorError",
- *           "path": "gender",
+ *           "path": "role",
  *           "properties": {
  *             "enumValues": [
- *               "male",
- *               "female"
+ *               "citzen",
+ *               "manager"
  *             ],
  *             "message": "`{VALUE}` is not a valid enum value for path `{PATH}`.",
- *             "path": "gender",
+ *             "path": "role",
  *             "type": "enum",
  *             "value": "foo"
  *           },
@@ -243,13 +243,4 @@ module.exports = function(app) {
  *         }
  *       }
  *     }
- */
-
-
-/**
- * @apiDefine Pagination
- * @apiParam (URL query parameters) {Number} page The page to retrieve
- * @apiParam (URL query parameters) {Number} pageSize The number of object in page
- * 
- * 
  */

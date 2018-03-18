@@ -14,9 +14,9 @@ exports.create = function(req, res) {
     user.save(function(err, data) {
         if (err) {
             console.log(err);
-            res.status(500).send({ message: "Some error occurred while creating User." });
+            res.status(422).send({ message: "Some of the user's properties are invalid." });
         } else {
-            res.status(200).send(data);
+            res.status(201).send(data);
         }
     });
 };
@@ -68,7 +68,7 @@ exports.findOne = function(req, res) {
     }, function(err, data) {
         if (err) {
             console.log(err.message);
-            res.status(500).send({ message: "Could not retrieve User with id " + req.params.id });
+            res.status(404).send({ message: "No user found with id " + req.params.id });
         } else {
             res.status(200).send(data);
         }
@@ -76,35 +76,38 @@ exports.findOne = function(req, res) {
 };
 
 exports.updateFields = function(req, res) {
-    // Update (partial) a User identified by the id in the request
-    User.findByIdAndUpdate(
-        // The id of the User to find
-        req.params.id,
-        //Update each field of User
-        { $set: req.body },
+    User.findById(req.params.id, function(err, data) {
+        if (err) return res.status(404).send({ message: "No user found with id " + req.params.id });
+        // Update (partial) a User identified by the id in the request
+        User.findByIdAndUpdate(
+            // The id of the User to find
+            req.params.id,
+            //Update each field of User
+            { $set: req.body },
 
-        // Return the updated version and create user if does no exist
-        { upsert: true, new: true },
-        // Update user data
-        (err, data) => {
-            // Handle any possible database errors
-            if (err) {
-                res.status(500).send({ message: "Could not update User with id " + req.params.id });
-            } else {
-                console.log(data);
-                res.status(200).send(data);
+            // Return the updated version and create user if does no exist
+            { upsert: true, new: true },
+            // Update user data
+            (err, data) => {
+                // Handle any possible database errors
+                if (err) {
+                    res.status(422).send({ message: "Some of the user's properties with ID " + req.params.id + " are invalid " });
+                } else {
+                    console.log(data);
+                    res.status(200).send(data);
+                }
             }
-        }
-    )
+        )
+    });
 };
 
 exports.delete = function(req, res) {
     // Delete a User with the specified id in the request
     User.remove({ _id: req.params.id }, function(err, data) {
         if (err) {
-            res.status(500).send({ message: "Could not delete User with id " + req.params.id });
+            res.status(404).send({ message: "No user found with ID " + req.params.id });
         } else {
-            res.status(204).send({ message: "User deleted successfully!" })
+            res.status(204).send({ message: "No content" })
         }
     });
 

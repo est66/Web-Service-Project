@@ -13,13 +13,10 @@ exports.create = function(req, res) {
     issue.save(function(err, data) {
         if (err) {
             console.log(err);
-            res.status(500).send({
-                message: "Some error occurred while creating Issue.",
-                errors: err.errors
+            res.status(422).send({ message: "Some of the issue's properties  are invalid " });
 
-            });
         } else {
-            res.status(200).send(data);
+            res.status(201).send(data);
         }
     });
 };
@@ -63,7 +60,7 @@ exports.findOne = function(req, res) {
 
     Issue.findById(req.params.id, function(err, data) {
         if (err) {
-            res.status(404).send({ message: "Could not retrieve Issue with id " + req.params.id });
+            res.status(404).send({ message: "No issue found with ID " + req.params.id });
         } else {
             res.status(200).send(data);
         }
@@ -73,7 +70,10 @@ exports.findOne = function(req, res) {
 exports.updateFields = function(req, res) {
     // Update (partial) an Issue identified by the id in the request
     Issue.findById(req.params.id, function(err, issue) {
-        if (err) return handleError(err.message);
+        if (err) {
+            return res.status(404).send({ message: "No issue found with ID " + req.params.id });
+            //handleError(err.message);
+        }
         //ADD THE NEW VALUE TO UPDATE AND VALIDATE STATUS TRANISITION (can't do that in model)
         let newIssue = req.body;
         if (newIssue.status) {
@@ -97,7 +97,7 @@ exports.updateFields = function(req, res) {
             (err, data) => {
                 // Handle any possible database errors
                 if (err) {
-                    res.status(500).send({ message: "Could not update Issue with id " + req.params.id });
+                    res.status(422).send({ message: "Some of the issue's properties with ID " + req.params.id + " are invalid " });
                 } else {
                     console.log(data);
                     res.status(200).send(data);
@@ -114,9 +114,9 @@ exports.delete = function(req, res) {
     // Delete a Issue with the specified id in the request
     Issue.remove({ _id: req.params.id }, function(err, data) {
         if (err) {
-            res.status(500).send({ message: "Could not delete Issue with id " + req.params.id });
+            res.status(404).send({ message: "No issue found with ID " + req.params.id });
         } else {
-            res.status(204).send({ message: "Issue deleted successfully!" })
+            res.status(204).send({ message: "No content" })
         }
     });
 
