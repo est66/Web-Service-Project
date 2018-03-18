@@ -60,7 +60,7 @@ exports.findAllAndFilter = function(req, res) {
 exports.findOne = function(req, res) {
     // Find a single User with a id
     //if (!mongoose.Types.ObjectId.isValid(req.query.uid))
-    console.log(req.params.id, "Yeahhhh!")
+
     User.findOne({
         $or: [
             { 'username': req.params.id }, { '_id': req.params.id }
@@ -84,7 +84,6 @@ exports.updateFields = function(req, res) {
             req.params.id,
             //Update each field of User
             { $set: req.body },
-
             // Return the updated version and create user if does no exist
             { upsert: true, new: true },
             // Update user data
