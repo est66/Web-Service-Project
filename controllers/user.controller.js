@@ -27,7 +27,7 @@ exports.findAllAndFilter = function(req, res) {
     //FILTERS
     //add filters to query if in req.query
     if (req.query.role)
-        query = query.where('uid').in(req.query.uid);
+        query = query.where('role').in(req.query.role);
     if (req.query.firstname)
         query = query.where('firstname').in(req.query.firstname);
     if (req.query.lastname)
@@ -62,9 +62,7 @@ exports.findOne = function(req, res) {
     //if (!mongoose.Types.ObjectId.isValid(req.query.uid))
 
     User.findOne({
-        $or: [
-            { 'username': req.params.id }, { '_id': req.params.id }
-        ]
+        '_id': req.params.id
     }, function(err, data) {
         if (err) {
             console.log(err.message);
