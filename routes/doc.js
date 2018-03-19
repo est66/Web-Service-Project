@@ -1,6 +1,5 @@
 /**
- * @apiDefine PersonInRequestBody
- * @apiParam (Request body) {String{3..30}} name The person's name
- * @apiParam (Request body) {String="male,female"} gender The person's gender
- * @apiParam (Request body) {String} [birthDate] The person's birth date
+ * @apiDefine Pagination
+ * @apiParam (URL query parameters) {Number} page The page to retrieve
+ * @apiParam (URL query parameters) {Number} pageSize The number of object in page
  */
