@@ -20,8 +20,8 @@ module.exports = function(app) {
          *     Content-Type: application/json
          *
          *     {
-         *       "firstName": "Donald",
-         *       "lastName": "Trump",
+         *       "firstname": "Donald",
+         *       "lastname": "Trump",
          *       "role": "citzen"
          *     }
          *
@@ -32,8 +32,8 @@ module.exports = function(app) {
          *
          *     {
          *       "_id": "58b2926f5e1def0123e97bc0",
-         *       "firstName": "Donald",
-         *       "lastName": "Trump",
+         *       "firstname": "Donald",
+         *       "lastname": "Trump",
          *       "role": "citzen"
          *       "createdAt": "2017-01-01T14:31:87.000Z"
          *     }
@@ -68,15 +68,15 @@ module.exports = function(app) {
          *     [
          *       {
          *       "_id": "58b2926f5e1def0123e97bc0",
-         *       "firstName": "Donald",
-         *       "lastName": "Trump",
+         *       "firstname": "Donald",
+         *       "lastname": "Trump",
          *       "role": "citzen",
          *       "createdAt": "2017-01-01T14:31:87.000Z"
          *       },
          *       {
          *       "_id": "58b2926f5e1def0123e97bc1",
-         *       "firstName": "Donalda",
-         *       "lastName": "Trumpa",
+         *       "firstname": "Donalda",
+         *       "lastname": "Trumpa",
          *       "role": "citzen",
          *       "createdAt": "2017-01-01T14:31:87.000Z"
          *       }
@@ -106,8 +106,8 @@ module.exports = function(app) {
          *
          *     {
          *       "_id": "58b2926f5e1def0123e97bc0",
-         *       "firstName": "Donald",
-         *       "lastName": "Trump",
+         *       "firstname": "Donald",
+         *       "lastname": "Trump",
          *       "role": "citzen",
          *       "createdAt": "2017-01-01T14:31:87.000Z"
          *     }
@@ -118,7 +118,7 @@ module.exports = function(app) {
 
         // -----Update of User with id and body data (partial update) -----
         /**
-         * @api {put} /users/:id UPDATE USER
+         * @api {patch} /users/:id UPDATE USER
          * @apiName updateFields
          * @apiGroup User
          * @apiDescription Partially updates a user's data (only the properties found in the request body will be updated).
@@ -133,12 +133,12 @@ module.exports = function(app) {
          * 
          * 
          * @apiExample Example
-         *     PUT /users/58b2926f5e1def0123e97bc0 HTTP/1.1
+         *     PATCH /users/58b2926f5e1def0123e97bc0 HTTP/1.1
          *     Content-Type: application/json
          *
          *     {
-         *       "firstName": "Donaldy",
-         *       "lastName": "Trumpy",
+         *       "firstname": "Donaldy",
+         *       "lastname": "Trumpy",
          *     }
          *
          * @apiSuccessExample 200 OK
@@ -147,13 +147,13 @@ module.exports = function(app) {
          *
          *     {
          *       "_id": "58b2926f5e1def0123e97bc0",
-         *       "firstName": "Donaldy",
-         *       "lastName": "Trumpy",
+         *       "firstname": "Donaldy",
+         *       "lastname": "Trumpy",
          *       "role": "citzen",
          *       "createdAt": "2017-01-01T14:31:87.000Z"
          *     }
          */
-        app.put('/users/:id', users.updateFields);
+        app.patch('/users/:id', users.updateFields);
 
 
         // -----Delete a User with id -----
@@ -183,8 +183,8 @@ module.exports = function(app) {
 
 /**
  * @apiDefine UserInRequestBody
- * @apiParam (Request body) {String{2..20}} firstName First name of the user
- * @apiParam (Request body) {String{2..20}} lastName  Last name of the user
+ * @apiParam (Request body) {String{2..20}} firstname First name of the user
+ * @apiParam (Request body) {String{2..20}} lastname  Last name of the user
  * @apiParam (Request body) {String="citzen","manager"} role Role of the user
  * 
  */
@@ -192,8 +192,8 @@ module.exports = function(app) {
 
 /**
  * @apiDefine UserInResponseBody
- * @apiSuccess {String} user.firstName Firstname of the user
- * @apiSuccess {String} user.lastName  Lastname of the user
+ * @apiSuccess {String} user.firstname Firstname of the user
+ * @apiSuccess {String} user.lastname  Lastname of the user
  * @apiSuccess {String} user.role  Role of the user
  * @apiSuccess {String} user.createdAt  Creation date of the user
  * 

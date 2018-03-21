@@ -55,12 +55,12 @@ exports.findAllAndFilter = function(req, res) {
     // Apply skip and limit to select the correct page of elements
     query = query.skip((page - 1) * pageSize).limit(pageSize);
 
-    // Retrieve and return all Issues from the database.
-    query.exec(function(err, Issues) {
+    // Retrieve and return all Users from the database.
+    query.exec(function(err, Users) {
         if (err) {
-            res.status(500).send({ message: "Some error occurred while retrieving Issues." });
+            res.status(500).send({ message: "Some error occurred while retrieving Users." });
         } else {
-            res.status(200).send(Issues);
+            res.status(200).send(Users);
         }
     });
 };
@@ -69,9 +69,8 @@ exports.findOne = function(req, res) {
     // Find a single User with a id
     //if (!mongoose.Types.ObjectId.isValid(req.query.uid))
 
-    User.findOne({
-        '_id': req.params.id
-    }, function(err, data) {
+    User.findById(req.params.id, function(err, data) {
+        console.log(data);
         if (err) {
             console.log(err.message);
             res.status(404).send({ message: "No user found with id " + req.params.id });
@@ -85,24 +84,30 @@ exports.updateFields = function(req, res) {
     User.findById(req.params.id, function(err, data) {
         if (err) return res.status(404).send({ message: "No user found with id " + req.params.id });
         // Update (partial) a User identified by the id in the request
-        User.findByIdAndUpdate(
-            // The id of the User to find
-            req.params.id,
-            //Update each field of User
-            { $set: req.body },
-            // Return the updated version and create user if does no exist
-            { upsert: true, new: true },
-            // Update user data
-            (err, data) => {
-                // Handle any possible database errors
-                if (err) {
-                    res.status(422).send({ message: "Some of the user's properties with ID " + req.params.id + " are invalid " });
-                } else {
-                    console.log(data);
-                    res.status(200).send(data);
-                }
+        User.findById(req.params.id, function(err, user) {
+            if (err) {
+                return res.status(404).send({ message: "No user found with ID " + req.params.id });
+                //handleError(err.message);
             }
-        )
+            let newUser = req.body;
+            if (newUser.firstname) user.firstname = newUser.firstname;
+            if (newUser.lastname) user.lastname = newUser.lastname;
+            if (newUser.role) user.role = newUser.role;
+            //SAVE THE NEW VALUE
+            user.save(
+                // Update user data
+                (err, data) => {
+                    // Handle any possible database errors
+                    if (err) {
+                        res.status(422).send({ message: "Some of the user's properties with ID " + req.params.id + " are invalid " });
+                    } else {
+                        console.log(data);
+                        res.status(200).send(data);
+                    }
+                }
+            )
+        })
+
     });
 };
 

@@ -65,7 +65,7 @@ module.exports = function(app) {
          * @apiUse IssueInResponseBody
          * @apiUse Pagination
          *
-         * @apiParam (URL query parameters) {String} uid Select only issue with a specific ID
+         * @apiParam (URL query parameters) {String} uid Select only issue with a specific user Id
          * @apiParam (URL query parameters) {String} status Select only issue with a specific status
          * 
          * @apiExample Example
@@ -142,7 +142,7 @@ module.exports = function(app) {
 
         // Update of issue with id and body data (partial update) 
         /**
-         * @api {put} /issues/:id UPDATE ISSUE
+         * @api {patch} /issues/:id UPDATE ISSUE
          * @apiName updateFields
          * @apiGroup Issue
          * @apiVersion 1.0.0
@@ -157,7 +157,7 @@ module.exports = function(app) {
          * @apiUse IssueValidationError
          *
          * @apiExample Example
-         *     PUT /issues/6n16werg6nrw61eqr6f1498v HTTP/1.1
+         *     PATCH /issues/6n16werg6nrw61eqr6f1498v HTTP/1.1
          *     Content-Type: application/json
          *
          *     {
@@ -182,7 +182,7 @@ module.exports = function(app) {
          *       "updatedAt": "2018-01-01T14:31:87.000Z
          *     }
          */
-        app.put('/issues/:id', issues.updateFields);
+        app.patch('/issues/:id', issues.updateFields);
 
         // Delete an issue with id
         /**

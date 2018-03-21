@@ -32,13 +32,18 @@ var issueSchema = Schema({
         maxlength: 500,
         required: false,
     }, //a URL to a picture of the issue
-    latitude: Number,
-    longitude: Number,
-    tags: [ // Nested array of tags
-        {
-            tag: String
-        }
-    ]
+    latitude: {
+        type: Number,
+        required: true
+    },
+    longitude: {
+        type: Number,
+        required: true
+    },
+    tags: {
+        type: [String],
+        require: true
+    }
 }, {
     timestamps: {
         createdAt: 'createdAt',
