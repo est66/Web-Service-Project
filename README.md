@@ -1,2 +1,3 @@
 # Web-Service-Project
-Citzen Application (FULL REST API)
+
+This project was created following these [setup instructions](https://github.com/MediaComem/comem-webserv).
