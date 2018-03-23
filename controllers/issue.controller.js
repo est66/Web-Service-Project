@@ -13,7 +13,7 @@ exports.create = function(req, res) {
     issue.save(function(err, data) {
         if (err) {
             console.log(err);
-            res.status(422).send({ message: "Some of the issue's properties  are invalid " });
+            res.status(422).send(err);
 
         } else {
             res.status(201).send(data);
@@ -97,7 +97,7 @@ exports.updateFields = function(req, res) {
             (err, data) => {
                 // Handle any possible database errors
                 if (err) {
-                    res.status(422).send({ message: "Some of the issue's properties with ID " + req.params.id + " are invalid " });
+                    res.status(422).send(err);
                 } else {
                     console.log(data);
                     res.status(200).send(data);

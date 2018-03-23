@@ -93,7 +93,7 @@ module.exports = function(app) {
          *       "_id": "sdvrkm234kewefmk34k654ktf",
          *       "uid": "58b2926f5e1def0123e97bc0",
          *       "status": "inProgress",
-         *       "description": "Dégradation sur la voie public encore uen fois",
+         *       "description": "Dégradation sur la voie public encore une fois",
          *       "imageUrl": "https://comem-webserv-2018h.herokuapp.com/public/images/img55365.jpg",
          *       "latitude": "46.7832",
          *       "longitude": "6.64",

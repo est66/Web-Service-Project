@@ -20,9 +20,9 @@ module.exports = function(app) {
          *     Content-Type: application/json
          *
          *     {
-         *       "firstname": "Donald",
-         *       "lastname": "Trump",
-         *       "role": "citzen"
+         *       "firstname": "Antoine",
+         *       "lastname": "Lot",
+         *       "role": "citizen"
          *     }
          *
          * @apiSuccessExample 201 Created
@@ -32,9 +32,9 @@ module.exports = function(app) {
          *
          *     {
          *       "_id": "58b2926f5e1def0123e97bc0",
-         *       "firstname": "Donald",
-         *       "lastname": "Trump",
-         *       "role": "citzen"
+         *       "firstname": "Antoine",
+         *       "lastname": "Lot",
+         *       "role": "citizen"
          *       "createdAt": "2017-01-01T14:31:87.000Z"
          *     }
          */
@@ -58,7 +58,7 @@ module.exports = function(app) {
          * @apiParam (URL query parameters) {String} firstname Filter by firstname
          * 
          * @apiExample Example
-         *     GET /users?role=citzen&page=2&pageSize=50 HTTP/1.1
+         *     GET /users?role=citizen&page=2&pageSize=50 HTTP/1.1
          *
          * @apiSuccessExample 200 OK
          *     HTTP/1.1 200 OK
@@ -68,16 +68,16 @@ module.exports = function(app) {
          *     [
          *       {
          *       "_id": "58b2926f5e1def0123e97bc0",
-         *       "firstname": "Donald",
-         *       "lastname": "Trump",
-         *       "role": "citzen",
+         *       "firstname": "Antoine",
+         *       "lastname": "Lot",
+         *       "role": "citizen",
          *       "createdAt": "2017-01-01T14:31:87.000Z"
          *       },
          *       {
          *       "_id": "58b2926f5e1def0123e97bc1",
-         *       "firstname": "Donalda",
-         *       "lastname": "Trumpa",
-         *       "role": "citzen",
+         *       "firstname": "Esteem",
+         *       "lastname": "Okoro",
+         *       "role": "citizen",
          *       "createdAt": "2017-01-01T14:31:87.000Z"
          *       }
          *     ]
@@ -106,9 +106,9 @@ module.exports = function(app) {
          *
          *     {
          *       "_id": "58b2926f5e1def0123e97bc0",
-         *       "firstname": "Donald",
-         *       "lastname": "Trump",
-         *       "role": "citzen",
+         *       "firstname": "Antoine",
+         *       "lastname": "Lot",
+         *       "role": "citizen",
          *       "createdAt": "2017-01-01T14:31:87.000Z"
          *     }
          */
@@ -137,8 +137,8 @@ module.exports = function(app) {
          *     Content-Type: application/json
          *
          *     {
-         *       "firstname": "Donaldy",
-         *       "lastname": "Trumpy",
+         *       "firstname": "Esteem",
+         *       "lastname": "Okoro",
          *     }
          *
          * @apiSuccessExample 200 OK
@@ -147,9 +147,9 @@ module.exports = function(app) {
          *
          *     {
          *       "_id": "58b2926f5e1def0123e97bc0",
-         *       "firstname": "Donaldy",
-         *       "lastname": "Trumpy",
-         *       "role": "citzen",
+         *       "firstname": "Esteem",
+         *       "lastname": "Okoro",
+         *       "role": "citizen",
          *       "createdAt": "2017-01-01T14:31:87.000Z"
          *     }
          */
@@ -185,7 +185,7 @@ module.exports = function(app) {
  * @apiDefine UserInRequestBody
  * @apiParam (Request body) {String{2..20}} firstname First name of the user
  * @apiParam (Request body) {String{2..20}} lastname  Last name of the user
- * @apiParam (Request body) {String="citzen","manager"} role Role of the user
+ * @apiParam (Request body) {String="citizen","manager"} role Role of the user
  * 
  */
 
@@ -231,15 +231,18 @@ module.exports = function(app) {
  *           "path": "role",
  *           "properties": {
  *             "enumValues": [
- *               "citzen",
+ *               "citizen",
  *               "manager"
  *             ],
  *             "message": "`{VALUE}` is not a valid enum value for path `{PATH}`.",
  *             "path": "role",
  *             "type": "enum",
  *             "value": "foo"
+ *             "$isValidatorError": true
  *           },
- *           "value": "foo"
+ *           "_message": "User validation failed",
+ *           "message": "User validation failed: role: `foo` is not a valid enum value for path `role`.",
+ *           "name": "ValidationError"
  *         }
  *       }
  *     }
